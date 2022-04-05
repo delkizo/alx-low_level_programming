@@ -1,45 +1,40 @@
-#include <stdio.h>
+#include "main.h"
 #include <stdlib.h>
-#include "main"
-/**
- * string_nconcat - function to concatnate strings with n bytes
- * @s1: destination for concatnation
- * @s2: source of string
- * @n: int type for size of byte
- * Return: pointer to new memory allocated
- */
+#include <stdio.h>
 
-char *string_nconcat(char *s1, char *s2, unsigned int n)
+/**
+* str_concat - a function that concatenates two strings.
+*@s1:First string
+*@s2:Second string
+*
+*Return: NULL in case of failure , but pointer to new string in
+*case of success
+*/
+
+char *str_concat(char *s1, char *s2)
 {
-int count, count1;
-int sign = n;
-char *ptr;
-int len1, len2;
+char *concat_str;
+int index, concat_index = 0,  len = 0;
 
 if (s1 == NULL)
 s1 = "";
+
 if (s2 == NULL)
 s2 = "";
 
-for (len1 = 0; s1[len1] != '\0'; len1++)
-for (len2 = 0; s2[len2] != '\0'; len2++)
-if (sign >= len2)
-{
-sign = len2;
-ptr = malloc(sizeof(char) * (len1 + len2 + 1));
-}
-else
-ptr = malloc(sizeof(char) * (len1 + n + 1));
-if (ptr == NULL)
+for (index = 0; s1[index] || s2[index]; index++)
+len++;
+
+concat_str = malloc(sizeof(char) * len);
+
+if (concat_str == NULL)
 return (NULL);
-for (count = 0; count < len1; count++)
-{
-ptr[count] = s1[count];
-}
-for (count1 = 0; count1 < sign; count1++)
-{
-ptr[count++] = s2[count1];
-}
-ptr[count++] = '\0';
-return (ptr);
+
+for (index = 0; s1[index]; index++)
+concat_str[concat_index++] = s1[index];
+
+for (index = 0; s2[index]; index++)
+concat_str[concat_index++] = s2[index];
+
+return (concat_str);
 }
